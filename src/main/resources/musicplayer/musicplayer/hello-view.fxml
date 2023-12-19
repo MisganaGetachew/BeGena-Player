@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,19 +39,20 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Play">
+            <Tab id="songLabel" text="Play">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Text layoutX="183.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work on Play, Pause, back, forward button and it's functionality " wrappingWidth="215.13671875">
+                        <Button id="play" layoutX="141.0" layoutY="159.0" mnemonicParsing="false" onAction="#playButton" text="play" />
+                        <Button id="pause" layoutX="178.0" layoutY="159.0" mnemonicParsing="false" onAction="#pauseButton" text="pause" />
+                        <Button id="previous" layoutX="227.0" layoutY="159.0" mnemonicParsing="false" onAction="#previousButton" text="previous" />
+                        <Button id="next" layoutX="288.0" layoutY="159.0" mnemonicParsing="false" onAction="#nextButton" text="next" />
+                        <Label id="songLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="93.0" prefHeight="43.0" prefWidth="240.0" text="mp3 player" textFill="#1f42e2">
                            <font>
-                              <Font name="Constantia" size="14.0" />
+                              <Font size="37.0" />
                            </font>
-                        </Text>
-                        <Button layoutX="64.0" layoutY="291.0" mnemonicParsing="false" onAction="#playButton" text="play" />
-                        <Button layoutX="131.0" layoutY="291.0" mnemonicParsing="false" onAction="#pauseButton" text="pause" />
-                        <Button layoutX="206.0" layoutY="291.0" mnemonicParsing="false" onAction="#previousButton" text="previous" />
-                        <Button layoutX="281.0" layoutY="291.0" mnemonicParsing="false" onAction="#nextButton" text="next" />
+                        </Label>
+                        <Button id="reply" layoutX="327.0" layoutY="159.0" mnemonicParsing="false" onAction="#replyButton" text="Reply" />
                      </children>
                   </AnchorPane>
               </content>
