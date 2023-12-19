@@ -8,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class HelloController {
@@ -16,41 +17,31 @@ public class HelloController {
     @FXML private Button playButton, pauseButton, nextButton, previousButton, replyButton;
      private Media media;
      private MediaPlayer mediaPlayer;
-
-    private File musicFolder;
-    private File[] files;
-
-    private ArrayList<File> songs;
-
-    private int songNumber = 0;
-
+    int songNumber = 0;
 
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeMedia();
     }
 
     private void initializeMedia() {
-        songs = new ArrayList<>();
-        musicFolder = new File("music");
-        files = musicFolder.listFiles();
+        File musicFolder = new File("musics");
+        File[] files = musicFolder.listFiles();
 
         if (files != null) {
-            for (File file : files) {
-                songs.add(file);
-            }
-        }
-
-        if (!songs.isEmpty()) {
-            media = new Media(songs.get(this.songNumber).toURI().toString());
+            ArrayList<File> songs = new ArrayList<>(Arrays.asList(files));
+            media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-        } else {
-            System.out.println("No songs found.");
+//            String songName = songs.get(0).getName();
+//            mediaPlayer.setOnReady(() -> {
+//                songLabel.setText(songName);
+//            });
         }
     }
-
     @FXML
     void playButton() {
-        if (mediaPlayer != null && media != null) {
+
+
+        if (media != null) {
             mediaPlayer.play();
         } else {
             initializeMedia();
@@ -62,22 +53,22 @@ public class HelloController {
 
     @FXML
     void pauseButton(){
-        System.out.println("pause button clicked!");
+        System.out.println("working on pause button....");
     }
 
     @FXML
     void previousButton(){
-        System.out.println("previous button clicked!");
+        System.out.println("working on previous button....");
     }
 
     @FXML
     void nextButton(){
-        System.out.println("next button clicked!");
+        System.out.println("working on next button....");
     }
 
     @FXML
     void replyButton(){
-        System.out.println("Reply button clicked!");
+        System.out.println("working on reply button....");
     }
 
 }
