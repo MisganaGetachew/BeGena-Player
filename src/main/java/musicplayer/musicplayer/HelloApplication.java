@@ -20,6 +20,7 @@ public class HelloApplication extends Application {
         stage.setY(50);
         stage.show();
 
+
     }
 
     public static void main(String[] args) {
