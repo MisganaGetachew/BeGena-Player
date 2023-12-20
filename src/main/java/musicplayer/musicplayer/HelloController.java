@@ -9,10 +9,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class HelloController {
     @FXML
@@ -113,31 +110,36 @@ void choose_file(){
 //    letting the user pick files (multiple files)
     List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
 
-    if (selectedFiles != null){
-//        System.out.println(selectedFiles.getName());
-        if (selectedFiles != null){
 
-            for(File file: selectedFiles ){
-                FilesChosen.addFiles(file);
-                System.out.println(file.getName());
-            }
+    if (selectedFiles != null){
+
+        for(File file: selectedFiles ){
+            FilesChosen.addFiles(file);
+            System.out.println(file.getName());
+        }
 //        File[] fileInFolder =  selectedFile.listFiles();
 //        System.out.println(selectedFile.getName());
 //
 //        System.out.println(fileInFolder.toString());
+
+        for (File file: FilesChosen.getFiles() ) {
+            System.out.println(file.getName());
         }
-        else{
-            System.out.println("file can't be found");
-        }
+
+
+    }else{
+        System.out.println("file can't be found");
     }
 
+
+}
 }
 
 
     class FilesChosen{
         private static ArrayList<File> files = new ArrayList<File>();
 
-        public static ArrayList<File> GetFiles(){
+        public static ArrayList<File> getFiles(){
 
             return files;
 
@@ -149,6 +151,13 @@ void choose_file(){
         }
 
     }
-}
+
+
+
+
+
+
+
+
 
 
