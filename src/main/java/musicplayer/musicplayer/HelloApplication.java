@@ -2,20 +2,33 @@ package musicplayer.musicplayer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Parent root = fxmlLoader.load();
 
-        stage.setTitle("Music Player");
+        Scene scene = new Scene(root, 320, 240);
+
+        stage.setTitle("Bgena Player");
         stage.setHeight(500);
         stage.setWidth(600);
+        Image icon=new Image("C:\\Users\\hp\\IdeaProjects\\BeGena-Player1\\src\\logo1.jpg");
+        stage.getIcons().add(icon);
+//        ImageView myImageView = (ImageView) root.lookup("#imageview");
+//        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image5.png")));
+//        myImageView.setImage(image);
+
+
         stage.setScene(scene);
         stage.setX(100);
         stage.setY(50);

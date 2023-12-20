@@ -3,6 +3,8 @@ package musicplayer.musicplayer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -12,6 +14,10 @@ import java.net.URL;
 import java.util.*;
 
 public class HelloController {
+    @FXML
+    private ListView<?> listview;
+    @FXML
+    private ImageView imageview;
     @FXML
     private Label musicName;
     @FXML private Button playButton, pauseButton, nextButton, previousButton, replyButton;
