@@ -7,9 +7,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-
 import java.io.File;
-import java.io.UTFDataFormatException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
