@@ -21,20 +21,26 @@ public class HelloController {
     private ArrayList<File> songs;
 
     public void initialize(URL arg0, ResourceBundle arg1) {
-        initializeMedia();
+        initializeMedia(FilesChosen.getFiles());
     }
 
-    private void initializeMedia() {
+    private void initializeMedia(ArrayList<File> files) {
 //        change the file path according to your file's path structure
 //        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
-        File musicFolder = new File("musics");
-        File[] files = musicFolder.listFiles();
+//        File musicFolder = new File("musics");
+//        File[] files = musicFolder.listFiles();
 
-        if (files != null) {
-            songs = new ArrayList<>(Arrays.asList(files));
+        this.songs = files;
+        if (songs != null) {
+//            songs = new ArrayList<>(Arrays.asList(files));
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
+        }
+
+        else{
+
+            System.out.println("files is empty");
         }
     }
     @FXML
@@ -42,7 +48,7 @@ public class HelloController {
         if (media != null) {
             mediaPlayer.play();
         } else {
-            initializeMedia();
+            initializeMedia(FilesChosen.getFiles());
             if (mediaPlayer != null) {
                 mediaPlayer.play();
             }
@@ -125,6 +131,11 @@ void choose_file(){
         for (File file: FilesChosen.getFiles() ) {
             System.out.println(file.getName());
         }
+
+
+        this.initializeMedia(FilesChosen.getFiles());
+
+
 
 
     }else{

@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
         stage.setX(100);
         stage.setY(50);
         stage.show();
-        HelloController controller = fxmlLoader.getController();
+//        HelloController controller = fxmlLoader.getController();
     }
 
     public static void main(String[] args) {
