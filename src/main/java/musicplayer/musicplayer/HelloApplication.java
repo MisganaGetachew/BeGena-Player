@@ -19,7 +19,7 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(root, 320, 240);
 
-        stage.setTitle("Bgena Player");
+        stage.setTitle("Begena Player");
         stage.setHeight(500);
         stage.setWidth(600);
         Image icon=new Image("C:\\Users\\hp\\IdeaProjects\\BeGena-Player1\\src\\logo1.jpg");
