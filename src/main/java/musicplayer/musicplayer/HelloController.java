@@ -1,6 +1,7 @@
 package musicplayer.musicplayer;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -13,9 +14,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-public class HelloController {
+public class HelloController implements Initializable {
     @FXML
-    private ListView<?> listview;
+    private ListView<String> listview;
     @FXML
     private ImageView imageview;
     @FXML
@@ -38,6 +39,11 @@ public class HelloController {
 
         if (files != null) {
             songs = new ArrayList<>(Arrays.asList(files));
+            for (File f: songs
+                 ) {
+                listview.getItems().add(f.getName());
+            }
+
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
