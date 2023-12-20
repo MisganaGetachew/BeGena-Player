@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.io.UTFDataFormatException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,11 +18,12 @@ import java.util.ResourceBundle;
 
 public class HelloController {
     @FXML
-    private Label songLabel;
+    private Label musicName;
     @FXML private Button playButton, pauseButton, nextButton, previousButton, replyButton;
     private Media media;
     private MediaPlayer mediaPlayer;
     int songNumber = 0;
+    private ArrayList<File> songs;
 
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeMedia();
@@ -28,23 +31,19 @@ public class HelloController {
 
     private void initializeMedia() {
 //        change the file path according to your file's path structure
-        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
+//        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
+        File musicFolder = new File("musics");
         File[] files = musicFolder.listFiles();
 
         if (files != null) {
-            ArrayList<File> songs = new ArrayList<>(Arrays.asList(files));
+            songs = new ArrayList<>(Arrays.asList(files));
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
-//            String songName = songs.get(0).getName();
-//            mediaPlayer.setOnReady(() -> {
-//                songLabel.setText(songName);
-//            });
+            musicName.setText(songs.get(songNumber).getName());
         }
     }
     @FXML
     void playButton() {
-
-
         if (media != null) {
             mediaPlayer.play();
         } else {
@@ -54,28 +53,53 @@ public class HelloController {
             }
         }
     }
-
     @FXML
     void pauseButton(){
-        System.out.println("working on pause button....");
+        mediaPlayer.pause();
     }
 
     @FXML
     void previousButton(){
-        System.out.println("working on previous button....");
+        if (songNumber > 0) {
+            songNumber--;
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            playButton();
+        } else {
+            songNumber = songs.size() - 1;
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            playButton();
+        }
     }
 
     @FXML
     void nextButton(){
-        System.out.println("working on next button....");
+        if (songNumber < songs.size() - 1) {
+            songNumber++;
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            playButton();
+        } else {
+            songNumber = 0;
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            playButton();
+        }
     }
 
     @FXML
     void replyButton(){
-        System.out.println("working on reply button....");
+        mediaPlayer.seek(Duration.seconds(0));
     }
-
-
 
 
 //samy don't touch this method
@@ -83,16 +107,16 @@ public class HelloController {
 void choose_file(){
 
     FileChooser chosen = new FileChooser();
-    File selectedFile = chosen.showOpenDialog(null);
+//    File selectedFile = chosen.showOpenDialog(null);
 //    System.out.println("file chooser selected ");
 
-    chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp4 files", "*.mp4"));
+    chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp3 files", "*.mp3"));
 //    File selectedFile = chosen.showOpenDialog(null);
 //    letting the user pick files (multiple files)
     List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
 
-    if (selectedFile != null){
-        System.out.println(selectedFile.getName());
+    if (selectedFiles != null){
+//        System.out.println(selectedFiles.getName());
         if (selectedFiles != null){
 
             for(File file: selectedFiles ){
@@ -118,7 +142,6 @@ void choose_file(){
         public static ArrayList<File> GetFiles(){
 
             return files;
-
 
         }
 

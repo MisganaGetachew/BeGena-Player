@@ -37,18 +37,19 @@
                 </Tab>
                 <Tab text="Play">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <Button id="play" layoutX="141.0" layoutY="159.0" mnemonicParsing="false" onAction="#playButton" text="play" />
                                 <Button id="pause" layoutX="178.0" layoutY="159.0" mnemonicParsing="false" onAction="#pauseButton" text="pause" />
                                 <Button id="previous" layoutX="227.0" layoutY="159.0" mnemonicParsing="false" onAction="#previousButton" text="previous" />
                                 <Button id="next" layoutX="288.0" layoutY="159.0" mnemonicParsing="false" onAction="#nextButton" text="next" />
-                                <Label id="songLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="141.0" layoutY="93.0" prefHeight="43.0" prefWidth="240.0" text="mp3 player" textFill="#1f42e2">
+                                <Label id="songLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="46.0" prefHeight="43.0" prefWidth="240.0" text="mp3 player" textFill="#1f42e2">
                                     <font>
                                         <Font size="37.0" />
                                     </font>
                                 </Label>
                                 <Button id="reply" layoutX="327.0" layoutY="159.0" mnemonicParsing="false" onAction="#replyButton" text="Reply" />
+                        <Label fx:id="musicName" alignment="CENTER" layoutX="143.0" layoutY="131.0" prefHeight="17.0" prefWidth="229.0" />
                             </children>
                         </AnchorPane>
                     </content>
