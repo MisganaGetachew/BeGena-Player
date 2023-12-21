@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -48,6 +49,10 @@ public class HelloController implements Initializable {
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
         }
+    }
+    @FXML
+    void searchbutton(InputMethodEvent event) {
+
     }
     @FXML
     void playButton() {
