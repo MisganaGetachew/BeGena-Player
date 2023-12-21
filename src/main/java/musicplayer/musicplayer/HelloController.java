@@ -50,10 +50,7 @@ public class HelloController implements Initializable {
             musicName.setText(songs.get(songNumber).getName());
         }
     }
-    @FXML
-    void searchbutton(InputMethodEvent event) {
 
-    }
     @FXML
     void playButton() {
         if (media != null) {

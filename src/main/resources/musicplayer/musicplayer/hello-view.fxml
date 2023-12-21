@@ -6,36 +6,53 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="musicplayer.musicplayer.HelloController">
     <children>
-        <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3498db;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #3498db;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="tracks">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.4172077922077922" layoutX="183.0" layoutY="45.0" orientation="VERTICAL" prefHeight="371.2" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane layoutX="183.0" layoutY="45.0" orientation="VERTICAL" prefHeight="371.2" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <ImageView fx:id="imageview" fitHeight="183.0" fitWidth="488.0" layoutX="42.0" layoutY="-15.0" pickOnBounds="true" preserveRatio="true">
+                                    <ListView fx:id="listview" onMouseClicked="#playButton" prefHeight="181.6" prefWidth="598.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <BorderPane layoutY="-2.0" prefHeight="374.0" prefWidth="209.0" style="-fx-background-color: #263f73;">
+                                       <left>
+                                          <Label prefHeight="79.0" prefWidth="205.0" text="BeGena-Player" textAlignment="CENTER" textFill="#fdf7f7" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font name="Verdana Bold" size="24.0" />
+                                             </font>
+                                             <effect>
+                                                <DropShadow />
+                                             </effect>
+                                          </Label>
+                                       </left>
+                                       <bottom>
+                                          <Line endX="100.0" startX="-100.0" BorderPane.alignment="CENTER" />
+                                       </bottom>
+                                    </BorderPane>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="362.0" fitWidth="378.0" layoutX="215.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../image5.png" />
+                                          <Image url="https://cdn.wallpapersafari.com/27/30/F3hmIY.jpg" />
                                        </image>
                                     </ImageView>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <ListView fx:id="listview" layoutX="138.0" layoutY="14.0" onMouseClicked="#playButton" prefHeight="181.6" prefWidth="598.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ImageView fitHeight="382.0" fitWidth="401.0" layoutX="199.0" layoutY="-13.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="364.0" fitWidth="382.0" layoutX="216.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -46,22 +63,18 @@
                 </Tab>
                 <Tab text="Search">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: BLACK;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffedd9;">
                             <children>
-                                <Text layoutX="174.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work on Search functionaity ">
-                                    <font>
-                                        <Font name="Constantia" size="14.0" />
-                                    </font>
-                                </Text>
-                        <Button layoutX="79.0" layoutY="156.0" mnemonicParsing="false" text="search" />
-                        <TextArea fx:id="searchbutton" layoutX="153.0" layoutY="86.0" onInputMethodTextChanged="#searchbutton" prefHeight="116.0" prefWidth="200.0" />
+                        <Button layoutX="393.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#choose_file" text="search" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <TextField layoutX="9.0" layoutY="16.0" onInputMethodTextChanged="#search" prefHeight="30.0" prefWidth="365.0" promptText="search button" style="-fx-background-color: #fffffff;" />
                             </children>
                         </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Play">
                     <content>
-                        <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                             <children>
                                 <Button id="play" layoutX="141.0" layoutY="159.0" mnemonicParsing="false" onAction="#playButton" text="play" />
                                 <Button id="pause" layoutX="178.0" layoutY="159.0" mnemonicParsing="false" onAction="#pauseButton" text="pause" />
@@ -80,14 +93,14 @@
                 </Tab>
                 <Tab text="About">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <Text layoutX="172.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="about section" wrappingWidth="166.1474609375">
-                                    <font>
-                                        <Font name="Constantia" size="14.0" />
-                                    </font>
-                                </Text>
-                            </children>
+                        <AnchorPane accessibleText="hello" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #ffedd9;">
+                     <children>
+                        <Label id="about" layoutX="-1.0" layoutY="1.0" prefHeight="371.0" prefWidth="600.0" style="-fx-background-color: #F5F5F5;" text="About&#10;&#10;App Name: BeGena-Player&#10;Version: 1.0&#10;Developer Information:&#10;Developed by: Harmonitech Technologies&#10;Email: melodiassounds@gmail.com&#10;Website: www.harmonyverse.com&#10;&#10;Description:&#10;BeGana-player is a feature-rich music player app that allows you to enjoy your favorite songs anytime, &#10;anywhere. With a sleek and intuitive interface, it offers a seamless music playback experience with &#10;advanced features like playlists, equalizer, and lyrics display.&#10;&#10;Privacy Policy:&#10;To learn about how we collect, use, and protect your data, please read our privacy policy at www.melodyplayer.com/privacy&#10;&#10;Terms of Service:&#10;By using MelodyPlayer, you agree to abide by our terms of service. &#10;      Please read the terms at www.harmonyverse.com/terms&#10;&#10;Credits:&#10;We would like to acknowledge the following resources and libraries used in developing harmonyverse:&#10;Icons by FontAwesome (www.fontawesome.com)&#10;Audio playback engine by OpenAL (www.openal.org)&#10;&#10;Copyright Information:&#10;© 2023  Harmonitech Technologies. All rights reserved.&#10;" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
                         </AnchorPane>
                     </content>
                 </Tab>
