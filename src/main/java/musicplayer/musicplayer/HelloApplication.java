@@ -15,10 +15,10 @@ public class HelloApplication extends Application {
 
         stage.setTitle("Music Player");
         stage.setHeight(500);
-        stage.setWidth(600);
+        stage.setWidth(630);
         stage.setScene(scene);
         stage.setX(100);
-        stage.setY(50);
+        stage.setY(100);
         stage.show();
 //        HelloController controller = fxmlLoader.getController();
     }
