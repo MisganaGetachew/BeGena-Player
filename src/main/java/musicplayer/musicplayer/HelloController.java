@@ -17,7 +17,13 @@ public class HelloController {
     @FXML
     private Label musicName;
     @FXML
+    private Label musicName1;
+
+    @FXML
     private Slider musicProgress;
+    @FXML
+    private Slider musicProgress1;
+
     private Media media;
     private MediaPlayer mediaPlayer;
     int songNumber = 0;
@@ -27,9 +33,9 @@ public class HelloController {
     private ListView<String> listSong;
 
     private HashMap<String, Integer> nameIndex = new HashMap<String, Integer>();
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        initializeMedia(FilesChosen.getFiles());
-    }
+//    public void initialize(URL arg0, ResourceBundle arg1) {
+//        initializeMedia(FilesChosen.getFiles());
+//    }
 
     private void initializeMedia(ArrayList<File> files) {
 //        change the file path according to your file's path structure
@@ -47,6 +53,7 @@ public class HelloController {
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
         }}
 
 
@@ -62,6 +69,8 @@ public class HelloController {
         media = new Media(songs.get(songNumber).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         musicName.setText(songs.get(songNumber).getName());
+        musicName1.setText(songs.get(songNumber).getName());
+
 //            mediaPlayer.pause();
         isPlaying = false;
         playButton();
@@ -73,18 +82,28 @@ public class HelloController {
             mediaPlayer.setOnPlaying(() -> {
                 Duration totalDuration = media.getDuration();
                 musicProgress.setMax(totalDuration.toSeconds());
+                musicProgress1.setMax(totalDuration.toSeconds());
             });
 
             mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
                 musicProgress.setValue(newValue.toSeconds());
+                musicProgress1.setValue(newValue.toSeconds());
             });
 
             musicProgress.setOnMouseDragged(mouseEvent -> {
                 mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
             });
 
+            musicProgress1.setOnMouseDragged(mouseEvent -> {
+                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
+            });
+
             musicProgress.setOnMousePressed(mouseEvent -> {
                 mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
+            });
+
+            musicProgress1.setOnMousePressed(mouseEvent -> {
+                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
             });
 
             if (media != null) {
@@ -120,6 +139,8 @@ public class HelloController {
         media = new Media(songs.get(songNumber).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         musicName.setText(songs.get(songNumber).getName());
+        musicName1.setText(songs.get(songNumber).getName());
+
         isPlaying = false;
         playButton();
     }
@@ -137,6 +158,7 @@ public class HelloController {
         media = new Media(songs.get(songNumber).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         musicName.setText(songs.get(songNumber).getName());
+        musicName1.setText(songs.get(songNumber).getName());
         isPlaying = false;
         playButton();
 
@@ -177,10 +199,18 @@ void choose_file(){
 
         for (File file: FilesChosen.getFiles() ) {
             System.out.println(file.getName());
+
         }
 
+        if(media != null){
+            mediaPlayer.pause();
+            this.initializeMedia(FilesChosen.getFiles());
 
-        this.initializeMedia(FilesChosen.getFiles());
+        }
+        else{
+            this.initializeMedia(FilesChosen.getFiles());
+
+        }
 
 
 
