@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
         stage.setTitle("Begena Player");
         stage.setHeight(500);
         stage.setWidth(600);
-        Image icon=new Image("C:\\Users\\hp\\IdeaProjects\\BeGena-Player1\\src\\logo1.jpg");
+        Image icon=new Image("C:\\Users\\seid5\\Desktop\\interfaces\\BeGena-Player\\src\\image5.png");
         stage.getIcons().add(icon);
 //        ImageView myImageView = (ImageView) root.lookup("#imageview");
 //        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image5.png")));
@@ -33,7 +33,7 @@ public class HelloApplication extends Application {
         stage.setX(100);
         stage.setY(50);
         stage.show();
-        HelloController controller = fxmlLoader.getController();
+        Object controller = fxmlLoader.getController();
     }
 
     public static void main(String[] args) {

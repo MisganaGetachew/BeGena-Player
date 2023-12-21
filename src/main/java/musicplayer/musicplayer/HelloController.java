@@ -34,7 +34,7 @@ public class HelloController implements Initializable {
     private void initializeMedia() {
 //        change the file path according to your file's path structure
 //        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
-        File musicFolder = new File("musics");
+        File musicFolder = new File("C:\\Users\\seid5\\Desktop\\interfaces\\BeGena-Player\\musics");
         File[] files = musicFolder.listFiles();
 
         if (files != null) {
@@ -60,6 +60,7 @@ public class HelloController implements Initializable {
             }
         }
     }
+
     @FXML
     void pauseButton(){
         mediaPlayer.pause();
