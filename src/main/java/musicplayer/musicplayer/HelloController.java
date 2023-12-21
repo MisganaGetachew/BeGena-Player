@@ -1,5 +1,7 @@
 package musicplayer.musicplayer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,7 +15,13 @@ import java.net.URL;
 import java.util.*;
 
 
-public class HelloController {
+public class HelloController  implements  Initializable{
+
+    // add songs list
+    private ObservableList<String> songList = FXCollections.observableArrayList();
+    @FXML
+    private TextField searchTextField;
+
     @FXML
     private Label musicName;
     @FXML
@@ -191,6 +199,9 @@ void choose_file(){
         for(File file: selectedFiles ){
             FilesChosen.addFiles(file);
             System.out.println(file.getName());
+
+            // Add song name to songlist to be displayed when searching
+            songList.add(file.getName());
         }
 //        File[] fileInFolder =  selectedFile.listFiles();
 //        System.out.println(selectedFile.getName());
@@ -221,6 +232,25 @@ void choose_file(){
 
 
 }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterList(newValue);
+        });
+    }
+    private void filterList(String filter) {
+        ObservableList<String> filteredList = FXCollections.observableArrayList();
+
+        for (String item : songList) {
+            if (item.toLowerCase().contains(filter.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        listSong.setItems(filteredList);
+    }
 }
         class FilesChosen{
         private static ArrayList<File> files = new ArrayList<File>();
