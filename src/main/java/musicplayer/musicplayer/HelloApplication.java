@@ -22,10 +22,10 @@ public class HelloApplication extends Application {
         stage.setTitle("Begena Player");
         stage.setHeight(500);
         stage.setWidth(600);
-        Image icon=new Image("C:\\Users\\seid5\\Desktop\\interfaces\\BeGena-Player\\src\\image5.png");
+        Image icon=new Image("C:\\Users\\seid5\\Desktop\\interfaces\\BeGena-Player\\src\\logo1.jpg");
         stage.getIcons().add(icon);
 //        ImageView myImageView = (ImageView) root.lookup("#imageview");
-//        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("image5.png")));
+//        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("C:\\Users\\seid5\\Desktop\\interfaces\\BeGena-Player\\src\\image5.png")));
 //        myImageView.setImage(image);
 
 
