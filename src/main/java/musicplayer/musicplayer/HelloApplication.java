@@ -3,6 +3,7 @@ package musicplayer.musicplayer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,7 +16,8 @@ public class HelloApplication extends Application {
 
         stage.setTitle("BeGena Player");
 
-
+        Image icon=new Image("C:\\Users\\hp\\IdeaProjects\\BeGena-Playerr\\src\\logo1.jpg");
+        stage.getIcons().add(icon);
         stage.setScene(scene);
 
         stage.setResizable(false);

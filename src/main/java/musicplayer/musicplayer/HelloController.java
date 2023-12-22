@@ -54,9 +54,9 @@ public class HelloController  implements  Initializable{
         this.songs = files;
         if (this.songs != null && !this.songs.isEmpty()) {
 
-                for (File f:songs) {
-                    listSong.getItems().add(f.getName());
-                    nameIndex.put(f.getName(), songs.indexOf(f));
+            for (File f:songs) {
+                listSong.getItems().add(f.getName());
+                nameIndex.put(f.getName(), songs.indexOf(f));
             }
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
@@ -97,48 +97,55 @@ public class HelloController  implements  Initializable{
 
     @FXML
     void playButton() {
-        if (!isPlaying){
-            mediaPlayer.setOnPlaying(() -> {
-                Duration totalDuration = media.getDuration();
-                musicProgress.setMax(totalDuration.toSeconds());
-                musicProgress1.setMax(totalDuration.toSeconds());
-            });
+        try{
+            if (!isPlaying){
+                mediaPlayer.setOnPlaying(() -> {
+                    Duration totalDuration = media.getDuration();
+                    musicProgress.setMax(totalDuration.toSeconds());
+                    musicProgress1.setMax(totalDuration.toSeconds());
+                });
 
-            mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
-                musicProgress.setValue(newValue.toSeconds());
-                musicProgress1.setValue(newValue.toSeconds());
-            });
+                mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
+                    musicProgress.setValue(newValue.toSeconds());
+                    musicProgress1.setValue(newValue.toSeconds());
+                });
 
-            musicProgress.setOnMouseDragged(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
-            });
+                musicProgress.setOnMouseDragged(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
+                });
 
-            musicProgress1.setOnMouseDragged(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
-            });
+                musicProgress1.setOnMouseDragged(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
+                });
 
-            musicProgress.setOnMousePressed(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
-            });
+                musicProgress.setOnMousePressed(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
+                });
 
-            musicProgress1.setOnMousePressed(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
-            });
+                musicProgress1.setOnMousePressed(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
+                });
 
-            if (media != null) {
-                mediaPlayer.play();
-            } else {
-
-                initializeMedia(Myfile.reader());
-                if (mediaPlayer != null) {
+                if (media != null) {
                     mediaPlayer.play();
+                } else {
+                    initializeMedia(FilesChosen.getFiles());
+                    if (mediaPlayer != null) {
+                        mediaPlayer.play();
+                    }
                 }
+                isPlaying = true;
+            } else {
+                mediaPlayer.pause();
+                isPlaying = false;
             }
-            isPlaying = true;
-        } else {
-            mediaPlayer.pause();
-            isPlaying = false;
+
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
         }
+
     }
     @FXML
     void pauseButton(){
@@ -147,98 +154,124 @@ public class HelloController  implements  Initializable{
 
     @FXML
     void previousButton(){
-        if (songNumber > 0) {
-            songNumber--;
+        try{
+            if (songNumber > 0) {
+                songNumber--;
 
-        } else {
-            songNumber = songs.size() - 1;
+            } else {
+                songNumber = songs.size() - 1;
+
+            }
+
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
+
+            isPlaying = false;
+            playButton();
+
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
 
         }
 
-        mediaPlayer.stop();
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        musicName.setText(songs.get(songNumber).getName());
-        musicName1.setText(songs.get(songNumber).getName());
-
-        isPlaying = false;
-        playButton();
     }
 
     @FXML
     void nextButton(){
-        if (songNumber < songs.size() - 1) {
-            songNumber++;
+        try{
 
-        } else {
-            songNumber = 0;
+            if (songNumber < songs.size() - 1) {
+                songNumber++;
+
+            } else {
+                songNumber = 0;
+
+            }
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
+            isPlaying = false;
+            playButton();
+
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
 
         }
-        mediaPlayer.stop();
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        musicName.setText(songs.get(songNumber).getName());
-        musicName1.setText(songs.get(songNumber).getName());
-        isPlaying = false;
-        playButton();
+
 
 
 
     }
-
     @FXML
     void replyButton(){
-        mediaPlayer.seek(Duration.seconds(0));
+        try{
+            mediaPlayer.seek(Duration.seconds(0));
+
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
+
+        }
+
     }
 
+    //samy don't touch this method
+    @FXML
+    void choose_file(){
 
-//samy don't touch this method
-@FXML
-void choose_file(){
-
-    FileChooser chosen = new FileChooser();
+        FileChooser chosen = new FileChooser();
 //    File selectedFile = chosen.showOpenDialog(null);
 //    System.out.println("file chooser selected ");
 
-    chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp3 files", "*.mp3"));
+        chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp3 files", "*.mp3"));
 //    File selectedFile = chosen.showOpenDialog(null);
 //    letting the user pick files (multiple files)
-    List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
+        List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
 
 
-    if (selectedFiles != null){
-        Myfile.writer(selectedFiles);
-        listSong.getItems().clear();
-        this.songs.clear();
-        for(File file: selectedFiles ){
+        if (selectedFiles != null){
+            Myfile.writer(selectedFiles);
+//        listSong.getItems().clear();
+//        this.songs.clear();
+            for(File file: selectedFiles ){
 //            FilesChosen.addFiles(file);
 
-            System.out.println(file.getName());
+                System.out.println(file.getName());
 
-            // Add song name to songlist to be displayed when searching
-            songList.add(file.getName());
+                // Add song name to songlist to be displayed when searching
+                songList.add(file.getName());
+            }
+
+
+            if(media != null){
+                pauseButton();
+                this.initializeMedia(Myfile.reader());
+
+            }
+            else{
+                this.initializeMedia(Myfile.reader());
+
+            }
+
+
+
+
+        }else{
+            System.out.println("file can't be found");
         }
 
 
-        if(media != null){
-            pauseButton();
-            this.initializeMedia(Myfile.reader());
-
-        }
-        else{
-            this.initializeMedia(Myfile.reader());
-
-        }
-
-
-
-
-    }else{
-        System.out.println("file can't be found");
     }
-
-
-}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -265,16 +298,16 @@ class FilesChosen{
 
     public static ArrayList<File> getFiles(){
 
-            return files;
-
-        }
-
-        public static void addFiles(File file){
-
-            files.add(file);
-        }
+        return files;
 
     }
+
+    public static void addFiles(File file){
+
+        files.add(file);
+    }
+
+}
 
 
 class Myfile {
@@ -322,7 +355,6 @@ class Myfile {
         return null;
     }
 }
-
 
 
 
