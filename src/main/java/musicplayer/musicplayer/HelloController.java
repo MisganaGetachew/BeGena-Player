@@ -275,11 +275,21 @@ public class HelloController  implements  Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeMedia(Myfile.reader());
-        this.songNumber = 0;
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterList(newValue);
-        });
+        File file  = new File("music.txt");
+        if(file.exists()){
+            initializeMedia(Myfile.reader());
+            this.songNumber = 0;
+            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filterList(newValue);
+            });
+        }
+       else{
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     private void filterList(String filter) {
         ObservableList<String> filteredList = FXCollections.observableArrayList();
