@@ -13,14 +13,14 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        stage.setTitle("Music Player");
-//        stage.setHeight(500);
-//        stage.setWidth(630);
+        stage.setTitle("BeGena Player");
+
+
         stage.setScene(scene);
-//        stage.setX(100);
-//        stage.setY(100);
+
+        stage.setResizable(false);
         stage.show();
-//        HelloController controller = fxmlLoader.getController();
+        HelloController controller = fxmlLoader.getController();
     }
 
     public static void main(String[] args) {

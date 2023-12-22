@@ -10,7 +10,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
-import java.io.File;
+
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -50,9 +51,8 @@ public class HelloController  implements  Initializable{
 ////        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
 //        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\play-tab\\BeGena-Player\\music");
 //        File[] files = musicFolder.listFiles();
-
-            this.songs = files;
-        if (files != null) {
+        this.songs = files;
+        if (!songs.isEmpty()) {
 
             for (File f:songs) {
                 listSong.getItems().add(f.getName());
@@ -68,20 +68,31 @@ public class HelloController  implements  Initializable{
 
     @FXML
     void playSong(MouseEvent event) {
-        String name  = listSong.getSelectionModel().getSelectedItem();
-//        System.out.println(name);
-//        System.out.println(nameIndex);
-        songNumber = nameIndex.get(name);
+        try {
+            String name  = listSong.getSelectionModel().getSelectedItem();
+            songNumber = nameIndex.get(name);
 //        System.out.println(songNumber);
-        mediaPlayer.pause();
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        musicName.setText(songs.get(songNumber).getName());
-        musicName1.setText(songs.get(songNumber).getName());
+            mediaPlayer.pause();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
 
 //            mediaPlayer.pause();
-        isPlaying = false;
-        playButton();
+            isPlaying = false;
+            playButton();
+
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Begena player");
+            alert.setHeaderText(null);
+            alert.setContentText("you clicked an empty list Item! if you see no Item in the list please use the add file button!");
+            alert.showAndWait();
+
+        }
+//        System.out.println(name);
+//        System.out.println(nameIndex);
+
     }
 
     @FXML
@@ -117,7 +128,8 @@ public class HelloController  implements  Initializable{
             if (media != null) {
                 mediaPlayer.play();
             } else {
-                initializeMedia(FilesChosen.getFiles());
+
+                initializeMedia(Myfile.reader());
                 if (mediaPlayer != null) {
                     mediaPlayer.play();
                 }
@@ -195,9 +207,12 @@ void choose_file(){
 
 
     if (selectedFiles != null){
-
+        Myfile.writer(selectedFiles);
+        listSong.getItems().clear();
+        this.songs.clear();
         for(File file: selectedFiles ){
-            FilesChosen.addFiles(file);
+//            FilesChosen.addFiles(file);
+
             System.out.println(file.getName());
 
             // Add song name to songlist to be displayed when searching
@@ -208,18 +223,18 @@ void choose_file(){
 //
 //        System.out.println(fileInFolder.toString());
 
-        for (File file: FilesChosen.getFiles() ) {
-            System.out.println(file.getName());
-
-        }
+//        for (File file: FilesChosen.getFiles() ) {
+//            System.out.println(file.getName());
+//
+//        }
 
         if(media != null){
-            mediaPlayer.pause();
-            this.initializeMedia(FilesChosen.getFiles());
+            pauseButton();
+            this.initializeMedia(Myfile.reader());
 
         }
         else{
-            this.initializeMedia(FilesChosen.getFiles());
+            this.initializeMedia(Myfile.reader());
 
         }
 
@@ -235,7 +250,8 @@ void choose_file(){
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        initializeMedia(Myfile.reader());
+        this.songNumber = 0;
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterList(newValue);
         });
@@ -252,10 +268,10 @@ void choose_file(){
         listSong.setItems(filteredList);
     }
 }
-        class FilesChosen{
-        private static ArrayList<File> files = new ArrayList<File>();
+class FilesChosen{
+    private static ArrayList<File> files = new ArrayList<File>();
 
-        public static ArrayList<File> getFiles(){
+    public static ArrayList<File> getFiles(){
 
             return files;
 
@@ -267,6 +283,54 @@ void choose_file(){
         }
 
     }
+
+
+class Myfile {
+
+    public static void writer(List<File> files) {
+        ArrayList<String> filePaths = new ArrayList<>();
+        for (File file : files) {
+            filePaths.add(file.getPath());
+        }
+
+        String filename = "music.txt";
+        File file = new File(filename);
+
+        try {
+            ArrayList<File> existingFiles = Myfile.reader();
+
+            FileWriter writer = new FileWriter(file, true);
+            for (String data : filePaths) {
+                File currentFile = new File(data);
+                if (!existingFiles.contains(currentFile)) {
+                    writer.write(data + '\n');
+                    existingFiles.add(currentFile); // Update the existing files list
+                    System.out.println("File path '" + data + "' written successfully.");
+                }
+            }
+            writer.close(); // Close the writer after use
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static ArrayList<File> reader() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("music.txt"))) {
+            String line;
+            ArrayList<File> fileList = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                File filenew = new File(line);
+                System.out.println(filenew.getName());
+                fileList.add(filenew);
+            }
+            return fileList;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+
 
 
 
