@@ -52,11 +52,11 @@ public class HelloController  implements  Initializable{
 //        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\play-tab\\BeGena-Player\\music");
 //        File[] files = musicFolder.listFiles();
         this.songs = files;
-        if (!songs.isEmpty()) {
+        if (this.songs != null && !this.songs.isEmpty()) {
 
-            for (File f:songs) {
-                listSong.getItems().add(f.getName());
-                nameIndex.put(f.getName(), songs.indexOf(f));
+                for (File f:songs) {
+                    listSong.getItems().add(f.getName());
+                    nameIndex.put(f.getName(), songs.indexOf(f));
             }
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
@@ -218,15 +218,7 @@ void choose_file(){
             // Add song name to songlist to be displayed when searching
             songList.add(file.getName());
         }
-//        File[] fileInFolder =  selectedFile.listFiles();
-//        System.out.println(selectedFile.getName());
-//
-//        System.out.println(fileInFolder.toString());
 
-//        for (File file: FilesChosen.getFiles() ) {
-//            System.out.println(file.getName());
-//
-//        }
 
         if(media != null){
             pauseButton();
