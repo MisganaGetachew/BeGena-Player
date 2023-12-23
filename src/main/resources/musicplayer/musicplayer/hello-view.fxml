@@ -22,11 +22,11 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="442.0" prefWidth="600.0" style="-fx-background-color: #151931;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="musicplayer.musicplayer.HelloController">
     <children>
-        <TabPane prefHeight="408.0" prefWidth="600.0" style="-fx-background-color: #151931;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane prefHeight="408.0" prefWidth="600.0" style="-fx-border-color: #131931;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Music">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #151931;">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000033;">
                             <children>
 
                                 <TextField fx:id="searchTextField" layoutX="42.0" layoutY="15.0" prefHeight="29.0" prefWidth="320.0" promptText="search">
@@ -34,8 +34,8 @@
                                         <Font name="System Italic" size="12.0" />
                                     </font>
                                 </TextField>
-                                <ListView fx:id="listSong" layoutX="13.0" layoutY="66.0" onMouseClicked="#playSong" prefHeight="234.0" prefWidth="576.0" style="-fx-background-color: #151931;-fx-control-inner-background: #151931; " />
-                                <Button layoutX="392.0" layoutY="15.0" mnemonicParsing="false" onAction="#choose_file" prefHeight="29.0" prefWidth="145.0" text="Add songs" textFill="#1d9081">
+                                <ListView fx:id="listSong" layoutX="13.0" layoutY="66.0" onMouseClicked="#playSong" prefHeight="234.0" prefWidth="576.0" style="-fx-background-color: #151931; -fx-control-inner-background: #151931;" />
+                                <Button layoutX="392.0" layoutY="15.0" mnemonicParsing="false" onAction="#choose_file" prefHeight="29.0" prefWidth="145.0" text="Add songs" textFill="#151931">
                                     <font>
                                         <Font name="Constantia" size="12.0" />
                                     </font>
@@ -91,7 +91,7 @@
                 </Tab>
                 <Tab text="Play">
                     <content>
-                        <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" rotate="360.0" style="-fx-background-color: #151931;">
+                        <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" rotate="360.0" style="-fx-background-color: #000033;">
                             <children>
                                 <Label fx:id="musicName" alignment="CENTER" layoutX="141.0" layoutY="306.0" prefHeight="33.0" prefWidth="278.0" style="-fx-text-fill: WHITE;" textFill="#1d9081">
                                     <font>
@@ -170,9 +170,9 @@
                 </Tab>
                 <Tab text="About">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000033;">
                             <children>
-                                <Text layoutX="172.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about the project (used technologies, group name, members..) in stylistic way ofc" wrappingWidth="166.1474609375">
+                                <Text fill="WHITE" layoutX="172.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about the project (used technologies, group name, members..) in stylistic way ofc" wrappingWidth="166.1474609375">
                                     <font>
                                         <Font name="Constantia" size="14.0" />
                                     </font>
