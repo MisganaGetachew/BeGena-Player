@@ -10,7 +10,7 @@ search for specific tracks, and adjust the playback progress using sliders.
 
 
 
-##### **Tools Used:*
+##### *Tools Used:*
 Java programming Language
 Javafx GUI
 Junit 
