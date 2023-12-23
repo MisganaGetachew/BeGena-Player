@@ -102,13 +102,19 @@ public class HelloController  implements  Initializable{
                 mediaPlayer.setOnPlaying(() -> {
                     Duration totalDuration = media.getDuration();
                     musicProgress.setMax(totalDuration.toSeconds());
+                    System.out.println();
                     musicProgress1.setMax(totalDuration.toSeconds());
                 });
 
                 mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
                     musicProgress.setValue(newValue.toSeconds());
+                    System.out.println(newValue.toSeconds());
                     musicProgress1.setValue(newValue.toSeconds());
-                    System.out.println();
+//                    if(totalDuration.toSeconds()) {
+//                        System.out.println("done deal");
+//                    }
+//                    }
+
                 });
 
                 musicProgress.setOnMouseDragged(mouseEvent -> {
