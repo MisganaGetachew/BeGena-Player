@@ -129,7 +129,7 @@ public class HelloController  implements  Initializable{
                 mediaPlayer.play();
             } else {
 
-//                initializeMedia(Myfile.reader());
+                initializeMedia(Myfile.reader());
                 if (mediaPlayer != null) {
                     mediaPlayer.play();
                 }
@@ -207,7 +207,7 @@ void choose_file(){
 
 
     if (selectedFiles != null){
-//        Myfile.writer(selectedFiles);
+        Myfile.writer(selectedFiles);
         listSong.getItems().clear();
         this.songs.clear();
         for(File file: selectedFiles ){
@@ -222,11 +222,11 @@ void choose_file(){
 
         if(media != null){
             pauseButton();
-//            this.initializeMedia(Myfile.reader());
+            this.initializeMedia(Myfile.reader());
 
         }
         else{
-//            this.initializeMedia(Myfile.reader());
+            this.initializeMedia(Myfile.reader());
 
         }
 
@@ -242,7 +242,7 @@ void choose_file(){
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        initializeMedia(Myfile.reader());
+        initializeMedia(Myfile.reader());
         this.songNumber = 0;
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterList(newValue);
@@ -260,6 +260,56 @@ void choose_file(){
         listSong.setItems(filteredList);
     }
 }
+
+class Myfile {
+
+    public static void writer(List<File> files) {
+        ArrayList<String> filePaths = new ArrayList<>();
+        for (File file : files) {
+            filePaths.add(file.getPath());
+        }
+
+        String filename = "music.txt";
+        File file = new File(filename);
+
+        try {
+            ArrayList<File> existingFiles = Myfile.reader();
+
+            FileWriter writer = new FileWriter(file, true);
+            for (String data : filePaths) {
+                File currentFile = new File(data);
+                if (!existingFiles.contains(currentFile)) {
+                    writer.write(data + '\n');
+                    existingFiles.add(currentFile); // Update the existing files list
+                    System.out.println("File path '" + data + "' written successfully.");
+                }
+            }
+            writer.close(); // Close the writer after use
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static ArrayList<File> reader() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("music.txt"))) {
+            String line;
+            ArrayList<File> fileList = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                File filenew = new File(line);
+                System.out.println(filenew.getName());
+                fileList.add(filenew);
+            }
+            return fileList;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
+
+
+
+
 
 
 
