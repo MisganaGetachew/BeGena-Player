@@ -188,15 +188,11 @@
                 </Tab>
                 <Tab text="About">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000033;">
+                        <AnchorPane blendMode="SCREEN" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000033;">
                             <children>
-                                <Text fill="WHITE" layoutX="172.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about the project (used technologies, group name, members..) in stylistic way ofc" wrappingWidth="166.1474609375">
-                                    <font>
-                                        <Font name="Constantia" size="14.0" />
-                                    </font>
-                                </Text>
                                 <ButtonBar layoutX="14.0" layoutY="365.0" prefHeight="40.0" prefWidth="200.0" />
                                 <BorderPane layoutX="14.0" layoutY="265.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Text fill="WHITE" layoutX="37.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About                                                                                                                                                    BeGena-Player v1.0 by The InvinciblesGitHub: https://github.com/MisganaGetachew/BeGena-Player                                                               Description: Feature-rich music player for seamless playback. No data collection.Terms: Personal, non-commercial license. No modification or unauthorized distribution.User Responsibilities: Maintain account confidentiality; avoid disruptive activities.Privacy: User data collected per Privacy Policy; use implies acceptance.                                                                                                               Credits: The Invincibles - Haramaya University SWE students.                                                                                                                                         Copyright © 2023 The Invincibles. All rights reserved." wrappingWidth="523.513671875" />
                             </children>
                         </AnchorPane>
                     </content>
