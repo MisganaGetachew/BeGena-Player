@@ -4,15 +4,25 @@
 
 Introduction:
 Welcome to the BeGena-Player Application!
-This Java-based application offers a delightful and easy-to-use platform for playing, pausing, skipping, and replaying
+This Java-based application offers a delightful and easy-to-use platform for playing, pausing,  and replaying
 your favorite songs. With a user-friendly interface, you can also add new songs to your playlist,
 search for specific tracks, and adjust the playback progress using sliders.
 
-##### **Key Concepts:**
 
-##### FXML:
-Definition: FXML (JavaFX Markup Language) is used to define the layout of the user interface.
-Purpose: Simplifies the creation of visually appealing interfaces for JavaFX applications.
+
+##### **Tools Used:*
+Java programming Language
+Javafx GUI
+Junit 
+
+
+##### Configuration :
+
+
+
+### Installation
+1. Clone the repository: `git clone https://github.com/MisganaGetachew/BeGena-Player.git`
+2. Navigate to the project directory: `cd BeGena-Player`
 
 ##### JavaFX:
 Definition: JavaFX is a powerful Java library for creating desktop applications with stunning user interfaces.
