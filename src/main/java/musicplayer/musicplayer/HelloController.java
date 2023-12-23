@@ -19,7 +19,7 @@ import java.util.*;
 public class HelloController  implements  Initializable{
 
     // add songs list
-    private ObservableList<String> songList = FXCollections.observableArrayList();
+    public final ObservableList<String> songList = FXCollections.observableArrayList();
     @FXML
     private TextField searchTextField;
 
@@ -108,6 +108,7 @@ public class HelloController  implements  Initializable{
                 mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
                     musicProgress.setValue(newValue.toSeconds());
                     musicProgress1.setValue(newValue.toSeconds());
+                    System.out.println();
                 });
 
                 musicProgress.setOnMouseDragged(mouseEvent -> {
@@ -129,7 +130,7 @@ public class HelloController  implements  Initializable{
                 if (media != null) {
                     mediaPlayer.play();
                 } else {
-                    initializeMedia(FilesChosen.getFiles());
+                    initializeMedia(Myfile.reader());
                     if (mediaPlayer != null) {
                         mediaPlayer.play();
                     }
@@ -245,17 +246,17 @@ public class HelloController  implements  Initializable{
 //        this.songs.clear();
             for(File file: selectedFiles ){
 //            FilesChosen.addFiles(file);
-
+                System.out.println("printing");
                 System.out.println(file.getName());
 
                 // Add song name to songlist to be displayed when searching
-                songList.add(file.getName());
             }
 
 
             if(media != null){
                 pauseButton();
                 this.initializeMedia(Myfile.reader());
+                System.out.println("reader");
 
             }
             else{
@@ -275,13 +276,24 @@ public class HelloController  implements  Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterList(newValue);
+
+
+        });
+
         File file  = new File("music.txt");
+
         if(file.exists()){
             initializeMedia(Myfile.reader());
+
+            for (File f:Myfile.reader()
+                 ) {
+                System.out.println(f.getName());
+                songList.add(f.getName());
+            }
             this.songNumber = 0;
-            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filterList(newValue);
-            });
+
         }
        else{
             try {
@@ -297,6 +309,7 @@ public class HelloController  implements  Initializable{
         for (String item : songList) {
             if (item.toLowerCase().contains(filter.toLowerCase())) {
                 filteredList.add(item);
+                System.out.println(item + "here gone");
             }
         }
 
@@ -355,7 +368,9 @@ class Myfile {
             ArrayList<File> fileList = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
                 File filenew = new File(line);
-                System.out.println(filenew.getName());
+
+//                System.out.println(filenew.getName());
+
                 fileList.add(filenew);
             }
             return fileList;
