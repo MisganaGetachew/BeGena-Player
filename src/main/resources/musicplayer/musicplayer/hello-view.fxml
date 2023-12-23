@@ -46,7 +46,7 @@
                                         <Blend />
                                     </effect>
                                 </Button>
-                                <Slider fx:id="musicProgress1" layoutX="24.0" layoutY="347.0" prefHeight="14.0" prefWidth="551.0" style="-fx-accent: blue;" />
+                                <Slider fx:id="musicProgress1" layoutX="49.0" layoutY="347.0" prefHeight="14.0" prefWidth="501.0" style="-fx-accent: blue;" />
                                 <Label fx:id="musicName1" alignment="CENTER" layoutX="141.0" layoutY="306.0" prefHeight="33.0" prefWidth="278.0" style="-fx-text-fill: WHITE;" textFill="#1d9081">
                                     <font>
                                         <Font name="Constantia Bold Italic" size="20.0" />
@@ -78,6 +78,15 @@
                            </font>
                         </Text>
                         <Text layoutX="413.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="➕" />
+                        <Label fx:id="currentTime1" alignment="CENTER" layoutX="13.0" layoutY="345.0" prefHeight="17.0" prefWidth="39.0" text="0.00" textFill="WHITE" />
+                        <Label fx:id="totalTime1" alignment="CENTER" layoutX="545.0" layoutY="345.0" prefHeight="17.0" prefWidth="45.0" text="0.00" textFill="WHITE" />
+                        <Slider fx:id="volume1" layoutX="438.0" layoutY="377.0" minorTickCount="1" prefHeight="15.0" prefWidth="115.0" value="50.0" />
+                        <Label layoutX="403.0" layoutY="371.0" text="🔊" textFill="#f6f3f3">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="volumeLabel1" alignment="CENTER" layoutX="413.0" layoutY="376.0" prefHeight="17.0" prefWidth="36.0" text="50" textFill="WHITE" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -97,7 +106,7 @@
                                     <font>
                                         <Font name="Constantia Bold Italic" size="20.0" />
                                     </font></Label>
-                                <Slider fx:id="musicProgress" layoutX="24.0" layoutY="347.0" prefHeight="14.0" prefWidth="550.0" style="-fx-accent: blue;" />
+                                <Slider fx:id="musicProgress" layoutX="49.0" layoutY="347.0" prefHeight="14.0" prefWidth="501.0" style="-fx-accent: blue;" />
                                 <Circle layoutX="280.0" layoutY="152.0" opacity="0.46" radius="97.0" rotate="360.0" stroke="DODGERBLUE" strokeType="INSIDE">
                                     <fill>
                                         <LinearGradient endX="0.17665613336894048" endY="0.3438485811937495" startX="1.0" startY="0.9274448220286083">
@@ -157,6 +166,15 @@
                               <Font size="25.0" />
                            </font>
                         </Text>
+                        <Label fx:id="totalTime2" alignment="CENTER" layoutX="545.0" layoutY="345.0" prefHeight="17.0" prefWidth="45.0" text="0.00" textFill="WHITE" />
+                        <Label fx:id="currentTime2" alignment="CENTER" layoutX="13.0" layoutY="345.0" prefHeight="17.0" prefWidth="39.0" text="0.00" textFill="WHITE" />
+                        <Slider fx:id="volume2" layoutX="438.0" layoutY="377.0" minorTickCount="1" prefHeight="15.0" prefWidth="115.0" value="50.0" />
+                        <Label layoutX="403.0" layoutY="371.0" text="🔊" textFill="#f6f3f3">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="volumeLabel2" alignment="CENTER" layoutX="413.0" layoutY="376.0" prefHeight="17.0" prefWidth="36.0" text="50" textFill="WHITE" />
                             </children>
                         </AnchorPane>
                     </content>

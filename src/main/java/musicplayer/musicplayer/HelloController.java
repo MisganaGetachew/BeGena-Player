@@ -19,9 +19,28 @@ import java.util.*;
 public class HelloController  implements  Initializable{
     double totaTimeDuration;
     double newvalue;
-//    Duration MayneValue;
+    @FXML
+    private Slider volume1;
 
-    // add songs list
+    @FXML
+    private Slider volume2;
+
+    @FXML
+    private Label volumeLabel1;
+
+    @FXML
+    private Label volumeLabel2;
+    @FXML
+    private Label currentTime1;
+
+    @FXML
+    private Label currentTime2;
+    @FXML
+    private Label totalTime1;
+
+    @FXML
+    private Label totalTime2;
+
     public final ObservableList<String> songList = FXCollections.observableArrayList();
     @FXML
     private TextField searchTextField;
@@ -84,6 +103,8 @@ public class HelloController  implements  Initializable{
     }}
     @FXML
     void playButton() {
+        mediaPlayer.setVolume(volume1.getValue() * 0.01);
+        mediaPlayer.setVolume(volume2.getValue() * 0.01);
         try{
             if (!isPlaying){
                 mediaPlayer.setOnPlaying(() -> {
@@ -91,21 +112,29 @@ public class HelloController  implements  Initializable{
                     totaTimeDuration = totalDuration.toMinutes();
 
                     musicProgress.setMax(totalDuration.toSeconds());
-                    System.out.println();
                     musicProgress1.setMax(totalDuration.toSeconds());
+
+                    long minutes = Math.round(totalDuration.toMinutes());
+                    double seconds = Math.round((totalDuration.toSeconds() % 60));
+
+                    totalTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
+                    totalTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
                 });
 
                 mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
                     musicProgress.setValue(newValue.toSeconds());
                     musicProgress1.setValue(newValue.toSeconds());
+
+                    long minutes = Math.round(newValue.toMinutes());
+                    double seconds = Math.round((newValue.toSeconds() % 60));
+                    currentTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
+                    currentTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
+
                     newvalue = newValue.toMinutes() + 0.02;
                     String NewValue = String.format("%.2f", newvalue);
                     String newTotalTime = String.format("%.2f", totaTimeDuration);
 
-                    System.out.println( NewValue);
-                    System.out.println( newTotalTime);
                     if(NewValue.equals(newTotalTime)){
-                        System.out.println("done");
                         nextButton();
                     }
                 });
@@ -254,13 +283,23 @@ public class HelloController  implements  Initializable{
             this.songNumber = 0;
 
         }
-       else{
+       else {
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+        volume1.valueProperty().bindBidirectional(volume2.valueProperty());
+
+        volume1.valueProperty().addListener((observableValue, number, t1) -> {
+            mediaPlayer.setVolume(volume1.getValue() * 0.01);
+            volumeLabel1.setText(String.valueOf(Math.round(volume1.getValue())));
+        });
+        volume2.valueProperty().addListener((observableValue, number, t1) -> {
+            mediaPlayer.setVolume(volume2.getValue() * 0.01);
+            volumeLabel2.setText(String.valueOf(Math.round(volume2.getValue())));
+        });
     }
 
     private void filterList(String filter) {
