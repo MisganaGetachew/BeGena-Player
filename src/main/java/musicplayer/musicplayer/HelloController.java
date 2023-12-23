@@ -287,10 +287,10 @@ public class HelloController  implements  Initializable{
         if(file.exists()){
             initializeMedia(Myfile.reader());
 
-            for (File f:Myfile.reader()
+            for (File currentFile:Myfile.reader()
                  ) {
-                System.out.println(f.getName());
-                songList.add(f.getName());
+                System.out.println(currentFile.getName());
+                songList.add(currentFile.getName());
             }
             this.songNumber = 0;
 
