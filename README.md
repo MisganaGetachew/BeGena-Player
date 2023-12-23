@@ -14,9 +14,8 @@ search for specific tracks, and adjust the playback progress using sliders.
 ##### *Tools Used:*
 Java programming Language
 Javafx GUI
-Junit testing library.
-
-
+Junit testing library
+File handling (for saving the path for the music file)
 
 
 
@@ -33,7 +32,4 @@ GitHub: https://github.com/MisganaGetachew/BeGena-Player
 
 
 Conclusion:
-In summary, our Music Player Application utilizes JavaFX and FXML to create an intuitive interface for playing and managing songs.
-It provides essential functionalities such as playback control, playlist management, and the ability to add new songs.
-The code is organized into classes and components that handle different aspects of the application,
-offering customization and extension possibilities for specific needs.
+Our Music Player Application leverages JavaFX and FXML to craft an intuitive interface, seamlessly facilitating the playback and management of songs. With core features like playback control, playlist management, and song addition, the application's functionality is robust. The code is structured into classes and components, each dedicated to specific aspects of the application. This organization not only ensures clarity but also provides customization and extension capabilities to meet unique requirements. Additionally, JUnit was employed to test the file-saving functionality, specifically validating the process of storing file paths as text.
