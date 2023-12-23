@@ -12,9 +12,9 @@ search for specific tracks, and adjust the playback progress using sliders.
 
 
 ##### *Tools Used:*
-Java programming Language
-Javafx GUI
-Junit testing library
+Java programming Language,
+Javafx GUI,
+Junit testing library,
 File handling (for saving the path for the music file)
 
 
