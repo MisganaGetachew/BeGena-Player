@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
@@ -13,7 +12,6 @@
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
@@ -30,7 +28,6 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #151931;">
                             <children>
-                                <Pane layoutX="-13.0" layoutY="302.0" opacity="0.09" prefHeight="161.0" prefWidth="651.0" style="-fx-background-color: #151931;" />
 
                                 <TextField fx:id="searchTextField" layoutX="42.0" layoutY="15.0" prefHeight="29.0" prefWidth="320.0" promptText="search">
                                     <font>
@@ -49,57 +46,53 @@
                                         <Blend />
                                     </effect>
                                 </Button>
-                                <Button id="previous" layoutX="172.0" layoutY="370.0" mnemonicParsing="false" onAction="#previousButton" prefHeight="27.0" prefWidth="61.0" style="-fx-border-radius: 50%;">
-                                    <graphic>
-                                        <FontAwesomeIcon glyphName="BACKWARD" size="17" wrappingWidth="16.0" />
-                                    </graphic>
-                                </Button>
                                 <Slider fx:id="musicProgress1" layoutX="24.0" layoutY="347.0" prefHeight="14.0" prefWidth="551.0" style="-fx-accent: blue;" />
-                                <Button id="play" layoutX="242.0" layoutY="370.0" mnemonicParsing="false" onAction="#playButton" prefHeight="26.0" prefWidth="56.0" />
-                                <Button id="next" layoutX="306.0" layoutY="370.0" mnemonicParsing="false" onAction="#nextButton" prefHeight="26.0" prefWidth="51.0">
-                           <graphic>
-                                      <FontAwesomeIcon glyphName="FORWARD" size="17" wrappingWidth="12.0" />
-                           </graphic></Button>
-                                <Button id="reply" layoutX="366.0" layoutY="370.0" mnemonicParsing="false" onAction="#replyButton" prefHeight="26.0" prefWidth="45.0">
-                           <graphic>
-                                      <FontAwesomeIcon glyphName="REFRESH" size="17" wrappingWidth="12.0" />
-                           </graphic></Button>
                                 <Label fx:id="musicName1" alignment="CENTER" layoutX="141.0" layoutY="306.0" prefHeight="33.0" prefWidth="278.0" style="-fx-text-fill: WHITE;" textFill="#1d9081">
                                     <font>
                                         <Font name="Constantia Bold Italic" size="20.0" />
                                     </font>
                                 </Label>
-                                <FontAwesomeIcon glyphName="PLAY" layoutX="256.0" layoutY="388.0" onMouseClicked="#playButton" size="17" />
-                                <FontAwesomeIcon glyphName="PAUSE" layoutX="273.0" layoutY="388.0" size="17" />
-                                <FontAwesomeIcon glyphName="PLUS" layoutX="419.0" layoutY="34.0" />
-                                <FontAwesomeIcon fill="DODGERBLUE" glyphName="SEARCH" layoutX="18.0" layoutY="28.0" />
+                        <Text fill="WHITE" layoutX="206.0" layoutY="399.0" onMouseClicked="#previousButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏮" wrappingWidth="39.29058837890625">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="261.0" layoutY="399.0" onMouseClicked="#playButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏯" wrappingWidth="37.6905517578125">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#fcf8f8" layoutX="305.0" layoutY="399.0" onMouseClicked="#nextButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏭" wrappingWidth="32.068359375">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#f7f7f7" layoutX="351.0" layoutY="399.0" onMouseClicked="#replyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="🔁" wrappingWidth="35.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#fcfcfc" layoutX="13.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🔍">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="413.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="➕" />
                             </children>
                         </AnchorPane>
                     </content>
-                    <graphic>
-                        <FontAwesomeIcon glyphName="MUSIC" />
-                    </graphic>
+               <graphic>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="🎶">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </graphic>
                 </Tab>
                 <Tab text="Play">
                     <content>
                         <AnchorPane id="musicName" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" rotate="360.0" style="-fx-background-color: #151931;">
                             <children>
-                                <Pane layoutY="289.0" opacity="0.09" prefHeight="161.0" prefWidth="651.0" style="-fx-background-color: grey;" />
-                                <Button id="play" layoutX="241.0" layoutY="370.0" mnemonicParsing="false" onAction="#playButton" prefHeight="26.0" prefWidth="59.0" />
-                                <Button id="previous" layoutX="171.0" layoutY="370.0" mnemonicParsing="false" onAction="#previousButton" prefHeight="27.0" prefWidth="62.0">
-                                    <graphic>
-                                        <FontAwesomeIcon glyphName="BACKWARD" selectionStart="1" size="17" text="" wrappingWidth="16.0" />
-                                    </graphic>
-                                </Button>
-                                <Button id="next" layoutX="306.0" layoutY="370.0" mnemonicParsing="false" onAction="#nextButton" prefHeight="26.0" prefWidth="50.0">
-                                    <graphic>
-                                        <FontAwesomeIcon glyphName="FORWARD" size="17" wrappingWidth="12.0" />
-                                    </graphic>
-                        </Button>
-                                <Button id="reply" layoutX="366.0" layoutY="370.0" mnemonicParsing="false" onAction="#replyButton" prefHeight="26.0" prefWidth="56.0">
-                                    <graphic>
-                                        <FontAwesomeIcon glyphName="REFRESH" size="17" wrappingWidth="12.0" />
-                                    </graphic></Button>
                                 <Label fx:id="musicName" alignment="CENTER" layoutX="141.0" layoutY="306.0" prefHeight="33.0" prefWidth="278.0" style="-fx-text-fill: WHITE;" textFill="#1d9081">
                                     <font>
                                         <Font name="Constantia Bold Italic" size="20.0" />
@@ -144,14 +137,36 @@
                                         </LinearGradient>
                                     </fill>
                                 </Text>
-                        <FontAwesomeIcon glyphName="PAUSE" layoutX="273.0" layoutY="389.0" size="17" />
-                                  <FontAwesomeIcon glyphName="PLAY" layoutX="257.0" layoutY="389.0" size="17" />
+                        <Text fill="WHITE" layoutX="206.0" layoutY="399.0" onMouseClicked="#previousButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏮" wrappingWidth="39.29058837890625">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="261.0" layoutY="399.0" onMouseClicked="#playButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏯" wrappingWidth="37.6905517578125">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#fcf8f8" layoutX="305.0" layoutY="399.0" onMouseClicked="#nextButton" strokeType="OUTSIDE" strokeWidth="0.0" text="⏭" wrappingWidth="32.068359375">
+                           <font>
+                              <Font size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#f7f7f7" layoutX="351.0" layoutY="399.0" onMouseClicked="#replyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="🔁" wrappingWidth="35.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
                             </children>
                         </AnchorPane>
                     </content>
-                    <graphic>
-                        <FontAwesomeIcon glyphName="PLAY" />
-                    </graphic>
+               <graphic>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="▶">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Text>
+               </graphic>
                 </Tab>
                 <Tab text="About">
                     <content>
@@ -167,9 +182,9 @@
                             </children>
                         </AnchorPane>
                     </content>
-                    <graphic>
-                        <FontAwesomeIcon glyphName="USER" text="" />
-                    </graphic>
+               <graphic>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+               </graphic>
                 </Tab>
             </tabs>
         </TabPane>
