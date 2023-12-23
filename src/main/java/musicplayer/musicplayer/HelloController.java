@@ -261,12 +261,14 @@ void choose_file(){
     }
 }
 
+//this is a file to write to or read from media path's using "music.txt"
 class Myfile {
 
     public static void writer(List<File> files) {
         ArrayList<String> filePaths = new ArrayList<>();
         for (File file : files) {
             filePaths.add(file.getPath());
+
         }
 
         String filename = "music.txt";
