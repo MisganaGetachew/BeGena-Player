@@ -21,9 +21,9 @@ File handling (for saving the path for the music file)
 
 
 ### Installation
-1. Clone the repository:
+1. Clone the repository:  
    `git clone https://github.com/MisganaGetachew/BeGena-Player.git`
-2. Navigate to the project directory:
+2. Navigate to the project directory:  
    `cd BeGena-Player`
 
 
@@ -33,7 +33,10 @@ File handling (for saving the path for the music file)
 [Samuel Negassa](https://github.com/Sami4N)  
 [Oriemi Obang](https://github.com/oriemiobang)  
 [Naol Lemessa](https://github.com/naol16)  
-[Tesfatsion Gudeta ](https://github.com/Tesfatsion-Gudeta)   
+[Tesfatsion Gudeta ](https://github.com/Tesfatsion-Gudeta)  
+[Hikma Jay ](https://github.com/Hikma2003)     
+
+
 
 @https://github.com/MisganaGetachew
 @
