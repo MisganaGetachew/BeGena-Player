@@ -5,7 +5,8 @@ This application offers a delightful and easy-to-use platform for playing, pausi
 your favorite songs. With a user-friendly interface, you can also add new songs to your playlist,
 search for specific tracks, and adjust the playback progress using sliders.
 
-
+####overview
+![About](src/main/resources/about.png)
 
 ##### *Tools Used:*
 Java programming Language,  
