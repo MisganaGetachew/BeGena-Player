@@ -4,18 +4,19 @@
 ####    Music Player Application
 
 Introduction:
-Welcome to the BeGena-Player Application!
-This Java-based application offers a delightful and easy-to-use platform for playing, pausing,  and replaying
+Welcome to the BeGena-Player Application!  
+it's a desktop Music player app named after the Amharic Music creating tool (በገና) read as "BeGena". 
+This application offers a delightful and easy-to-use platform for playing, pausing,  and replaying
 your favorite songs. With a user-friendly interface, you can also add new songs to your playlist,
 search for specific tracks, and adjust the playback progress using sliders.
 
 
 
 ##### *Tools Used:*
-Java programming Language,
-Javafx GUI,
-Junit testing library,
-File handling (for saving the path for the music file)
+Java programming Language,  
+Javafx GUI,  
+Junit testing library,  
+File handling (for saving the path for the music file)  
 
 
 
@@ -28,8 +29,11 @@ File handling (for saving the path for the music file)
 
 
 ####  Developed by: The Invincibles
-[@Misgana Getachew](https://github.com/MisganaGetachew)
-[@Samuel Negassa](https://github.com/Sami4N)
+[Misgana Getachew](https://github.com/MisganaGetachew)  
+[Samuel Negassa](https://github.com/Sami4N)  
+[Oriemi Obang](https://github.com/oriemiobang)  
+[Naol Lemessa](https://github.com/naol16)  
+[Tesfatsion Gudeta ](https://github.com/Tesfatsion-Gudeta)   
 
 @https://github.com/MisganaGetachew
 @
