@@ -28,6 +28,11 @@ File handling (for saving the path for the music file)
 
 
 ####  Developed by: The Invincibles
+[@Misgana Getachew](https://github.com/MisganaGetachew)
+[@Samuel Negassa](https://github.com/Sami4N)
+
+@https://github.com/MisganaGetachew
+@
 GitHub: https://github.com/MisganaGetachew/BeGena-Player
 
 
