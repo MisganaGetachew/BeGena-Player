@@ -23,8 +23,6 @@ File handling (for saving the path for the music file)
 
 ### Overview
 
-![About](src/main/resources/about.png)
-
 ### Music
 
 ![Music](src/main/resources/music.png)
@@ -32,6 +30,14 @@ File handling (for saving the path for the music file)
 ### Play
 
 ![Play](src/main/resources/play.png)
+
+### About
+
+![About](src/main/resources/about.png)
+
+
+
+
 
 ####  Developed by: The Invincibles
 
