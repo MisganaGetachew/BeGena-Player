@@ -21,15 +21,15 @@ File handling (for saving the path for the music file)
 2. Navigate to the project directory:  
    `cd BeGena-Player`
 
-### Overview
-
-### Music
-
-![Music](src/main/resources/music.png)
+#### Overview
 
 ### Play
 
 ![Play](src/main/resources/play.png)
+
+### Music
+
+![Music](src/main/resources/music.png)
 
 ### About
 
