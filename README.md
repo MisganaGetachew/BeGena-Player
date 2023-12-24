@@ -37,3 +37,6 @@ File handling (for saving the path for the music file)
 
 Conclusion:
 Our Music Player Application leverages JavaFX and FXML to craft an intuitive interface, seamlessly facilitating the playback and management of songs. With core features like playback control, playlist management, and song addition, the application's functionality is robust. The code is structured into classes and components, each dedicated to specific aspects of the application. This organization not only ensures clarity but also provides customization and extension capabilities to meet unique requirements. Additionally, JUnit was employed to test the file-saving functionality, specifically validating the process of storing file paths as text.
+
+### NB:  
+after testing the APP make sure the 'music.txt' is empty before running the app
