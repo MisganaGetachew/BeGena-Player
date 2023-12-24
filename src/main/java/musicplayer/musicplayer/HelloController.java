@@ -18,236 +18,304 @@ import java.util.*;
 
 public class HelloController  implements  Initializable{
 
-    // add songs list
-    private ObservableList<String> songList = FXCollections.observableArrayList();
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private Label musicName;
-    @FXML
-    private Label musicName1;
-
-    @FXML
-    private Slider musicProgress;
-    @FXML
-    private Slider musicProgress1;
+    @FXML private Slider volume1;
+    @FXML private Slider volume2;
+    @FXML private Label volumeLabel1;
+    @FXML private Label volumeLabel2;
+    @FXML private Label currentTime1;
+    @FXML private Label currentTime2;
+    @FXML private Label totalTime1;
+    @FXML private Label totalTime2;
+    @FXML private TextField searchTextField;
+    @FXML private Label musicName;
+    @FXML private Label musicName1;
+    @FXML private Slider musicProgress;
+    @FXML private Slider musicProgress1;
+    @FXML private ListView<String> listSong;
 
     private Media media;
     private MediaPlayer mediaPlayer;
     int songNumber = 0;
     boolean isPlaying = false;
+    double totaTimeDuration;
+    double newvalue;
     public ArrayList<File> songs;
-    @FXML
-    private ListView<String> listSong;
-
+    public final ObservableList<String> songList = FXCollections.observableArrayList();
     private HashMap<String, Integer> nameIndex = new HashMap<String, Integer>();
-//    public void initialize(URL arg0, ResourceBundle arg1) {
-//        initializeMedia(FilesChosen.getFiles());
-//    }
 
     private void initializeMedia(ArrayList<File> files) {
-//        change the file path according to your file's path structure
-////        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\Music-Player\\music");
-//        File musicFolder = new File("C:\\Users\\MG\\Desktop\\get-to-work\\comp.prog\\play-tab\\BeGena-Player\\music");
-//        File[] files = musicFolder.listFiles();
+
         this.songs = files;
         if (this.songs != null && !this.songs.isEmpty()) {
+            listSong.getItems().clear();
+            songList.clear();
 
-                for (File f:songs) {
-                    listSong.getItems().add(f.getName());
-                    nameIndex.put(f.getName(), songs.indexOf(f));
+            for (File f:songs) {
+                listSong.getItems().add(f.getName());
+                nameIndex.put(f.getName(), songs.indexOf(f));
+                songList.add(f.getName());
             }
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
             musicName1.setText(songs.get(songNumber).getName());
-        }}
+        }
+    }
 
-
-
+    // Event handler for playing a selected song from the list
     @FXML
     void playSong(MouseEvent event) {
         try {
             String name  = listSong.getSelectionModel().getSelectedItem();
             songNumber = nameIndex.get(name);
-//        System.out.println(songNumber);
             mediaPlayer.pause();
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
             musicName1.setText(songs.get(songNumber).getName());
-
-//            mediaPlayer.pause();
             isPlaying = false;
             playButton();
 
         }catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Begena player");
-            alert.setHeaderText(null);
-            alert.setContentText("you clicked an empty list Item! if you see no Item in the list please use the add file button!");
-            alert.showAndWait();
 
         }
-//        System.out.println(name);
-//        System.out.println(nameIndex);
-
     }
+    void nextSong(){
+        if(newvalue >= totaTimeDuration){
+        nextButton();
+    }}
 
+    // Event handler for the play button
     @FXML
     void playButton() {
-        if (!isPlaying){
-            mediaPlayer.setOnPlaying(() -> {
-                Duration totalDuration = media.getDuration();
-                musicProgress.setMax(totalDuration.toSeconds());
-                musicProgress1.setMax(totalDuration.toSeconds());
+
+        if (mediaPlayer != null){
+        try{
+            // Bind the volume1 slider property bidirectionally to the volume2 slider property
+            volume1.valueProperty().bindBidirectional(volume2.valueProperty());
+
+            // Add a listener to control the volume
+            volume1.valueProperty().addListener((observableValue, number, t1) -> {
+                mediaPlayer.setVolume(volume1.getValue() * 0.01);
+                volumeLabel1.setText(String.valueOf(Math.round(volume1.getValue())));
             });
 
-            mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
-                musicProgress.setValue(newValue.toSeconds());
-                musicProgress1.setValue(newValue.toSeconds());
+            volume2.valueProperty().addListener((observableValue, number, t1) -> {
+                mediaPlayer.setVolume(volume2.getValue() * 0.01);
+                volumeLabel2.setText(String.valueOf(Math.round(volume2.getValue())));
             });
+//            mediaPlayer.setVolume(volume1.getValue() * 0.01);
+//            mediaPlayer.setVolume(volume2.getValue() * 0.01);
+            if (!isPlaying){
+                // Initialize total duration and set maximum values for progress bars
+                mediaPlayer.setOnPlaying(() -> {
+                    Duration totalDuration = media.getDuration();
+                    totaTimeDuration = totalDuration.toMinutes();
 
-            musicProgress.setOnMouseDragged(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
-            });
+                    musicProgress.setMax(totalDuration.toSeconds());
+                    musicProgress1.setMax(totalDuration.toSeconds());
 
-            musicProgress1.setOnMouseDragged(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
-            });
+                    long minutes = Math.round(totalDuration.toMinutes());
+                    double seconds = Math.round((totalDuration.toSeconds() % 60));
 
-            musicProgress.setOnMousePressed(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
-            });
+                    //display total time
+                    totalTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
+                    totalTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
+                });
 
-            musicProgress1.setOnMousePressed(mouseEvent -> {
-                mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
-            });
+                mediaPlayer.currentTimeProperty().addListener((observable, duration, newValue) -> {
+                    musicProgress.setValue(newValue.toSeconds());
+                    musicProgress1.setValue(newValue.toSeconds());
 
-            if (media != null) {
-                mediaPlayer.play();
-            } else {
+                    long minutes = Math.round(newValue.toMinutes());
+                    double seconds = Math.round((newValue.toSeconds() % 60));
 
-                initializeMedia(Myfile.reader());
-                if (mediaPlayer != null) {
+                    //to display current time
+                    currentTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
+                    currentTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
+
+                    newvalue = newValue.toMinutes() + 0.02;
+                    String NewValue = String.format("%.2f", newvalue);
+                    String newTotalTime = String.format("%.2f", totaTimeDuration);
+
+                    if(NewValue.equals(newTotalTime)){
+                        nextButton();
+                    }
+                });
+
+                // Allow user to drag progress bar to seek to a specific position
+                musicProgress.setOnMouseDragged(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
+                });
+
+                musicProgress1.setOnMouseDragged(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
+                });
+
+                // Allow user to click on progress bar to seek to a specific position
+                musicProgress.setOnMousePressed(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
+                });
+
+                musicProgress1.setOnMousePressed(mouseEvent -> {
+                    mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
+                });
+                // If media is not null, play it; otherwise, initialize and play media
+                if (media != null) {
                     mediaPlayer.play();
+                } else {
+                    initializeMedia(Myfile.reader());
+                    if (mediaPlayer != null) {
+                        mediaPlayer.play();
+                    }
                 }
+                isPlaying = true;
+            } else {
+                mediaPlayer.pause();
+                isPlaying = false;
             }
-            isPlaying = true;
-        } else {
-            mediaPlayer.pause();
-            isPlaying = false;
+
+        } catch (NullPointerException e){
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
+        }}
+        else{
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
         }
     }
+
+    // Event handler for the pause button
     @FXML
     void pauseButton(){
         mediaPlayer.pause();
     }
 
+    // Event handler for the previous button
     @FXML
     void previousButton(){
-        if (songNumber > 0) {
-            songNumber--;
+        try{
+            if (songNumber > 0) {
+                songNumber--;
+            } else {
+                songNumber = songs.size() - 1;
+            }
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
 
-        } else {
-            songNumber = songs.size() - 1;
+            isPlaying = false;
+            playButton();
+
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
 
         }
-
-        mediaPlayer.stop();
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        musicName.setText(songs.get(songNumber).getName());
-        musicName1.setText(songs.get(songNumber).getName());
-
-        isPlaying = false;
-        playButton();
     }
-
+    // Event handler for the next button
     @FXML
     void nextButton(){
-        if (songNumber < songs.size() - 1) {
-            songNumber++;
+        try{
+            if (songNumber < songs.size() - 1) {
+                songNumber++;
+            } else {
+                songNumber = 0;
+            }
+            mediaPlayer.stop();
+            media = new Media(songs.get(songNumber).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            musicName.setText(songs.get(songNumber).getName());
+            musicName1.setText(songs.get(songNumber).getName());
+            isPlaying = false;
+            playButton();
 
-        } else {
-            songNumber = 0;
+        } catch (NullPointerException e){
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
 
         }
-        mediaPlayer.stop();
-        media = new Media(songs.get(songNumber).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        musicName.setText(songs.get(songNumber).getName());
-        musicName1.setText(songs.get(songNumber).getName());
-        isPlaying = false;
-        playButton();
-
-
-
     }
-
+    // Event handler for the reply button
     @FXML
-    void replyButton(){
-        mediaPlayer.seek(Duration.seconds(0));
+    void replyButton() {
+        try {
+            mediaPlayer.seek(Duration.seconds(0));
+
+        } catch (NullPointerException e) {
+
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
+
+        }
     }
+    @FXML
+    void choose_file(){
 
+        FileChooser chosen = new FileChooser();
+        chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp3 files", "*.mp3"));
+        List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
 
-//samy don't touch this method
-@FXML
-void choose_file(){
+        if (selectedFiles != null){
+            Myfile.writer(selectedFiles);
+            for(File file: selectedFiles ){
+                System.out.println(file.getName());
+            }
 
-    FileChooser chosen = new FileChooser();
-//    File selectedFile = chosen.showOpenDialog(null);
-//    System.out.println("file chooser selected ");
-
-    chosen.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("mp3 files", "*.mp3"));
-//    File selectedFile = chosen.showOpenDialog(null);
-//    letting the user pick files (multiple files)
-    List<File> selectedFiles = chosen.showOpenMultipleDialog(null);
-
-
-    if (selectedFiles != null){
-        Myfile.writer(selectedFiles);
-        listSong.getItems().clear();
-        this.songs.clear();
-        for(File file: selectedFiles ){
-//            FilesChosen.addFiles(file);
-
-            System.out.println(file.getName());
-
-            // Add song name to songlist to be displayed when searching
-            songList.add(file.getName());
+            if(media != null){
+                pauseButton();
+                this.initializeMedia(Myfile.reader());
+            }
+            else{
+                this.initializeMedia(Myfile.reader());
+            }
+        }else{
+            System.out.println("file can't be found");
         }
 
-
-        if(media != null){
-            pauseButton();
-            this.initializeMedia(Myfile.reader());
-
-        }
-        else{
-            this.initializeMedia(Myfile.reader());
-
-        }
-
-
-
-
-    }else{
-        System.out.println("file can't be found");
-    }
-
-
-}
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeMedia(Myfile.reader());
-        this.songNumber = 0;
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterList(newValue);
         });
     }
+
+    // Initialization method for the controller
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterList(newValue);
+        });
+
+        File file  = new File("music.txt");
+
+        if(file.exists()){
+
+            initializeMedia(Myfile.reader());
+
+            for (File currentFile:Myfile.reader()
+                 ) {
+                System.out.println("printing");
+                System.out.println(currentFile.getName());
+//                listSong.getItems().add(currentFile.getName());
+                songList.add(currentFile.getName());
+            }
+            this.songNumber = 0;
+        }
+       else {
+            try {
+                file.createNewFile();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    // Method to filter the song list based on user input
     private void filterList(String filter) {
         ObservableList<String> filteredList = FXCollections.observableArrayList();
 
@@ -256,21 +324,19 @@ void choose_file(){
                 filteredList.add(item);
             }
         }
-
         listSong.setItems(filteredList);
     }
 }
+//  a class to store/retrieve media file's path as text
 
-//this is a file to write to or read from media path's using "music.txt"
 class Myfile {
 
+//    writer method writes the every of media file's path in to music.txt
     public static void writer(List<File> files) {
         ArrayList<String> filePaths = new ArrayList<>();
         for (File file : files) {
             filePaths.add(file.getPath());
-
         }
-
         String filename = "music.txt";
         File file = new File(filename);
 
@@ -292,13 +358,13 @@ class Myfile {
         }
     }
 
+//    reader file reads the text file and finds the media files with specific path and returns it
     public static ArrayList<File> reader() {
         try (BufferedReader reader = new BufferedReader(new FileReader("music.txt"))) {
             String line;
             ArrayList<File> fileList = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
                 File filenew = new File(line);
-                System.out.println(filenew.getName());
                 fileList.add(filenew);
             }
             return fileList;
@@ -308,7 +374,6 @@ class Myfile {
         return null;
     }
 }
-
 
 
 
