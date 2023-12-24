@@ -17,52 +17,30 @@ import java.util.*;
 
 
 public class HelloController  implements  Initializable{
-    double totaTimeDuration;
-    double newvalue;
-    @FXML
-    private Slider volume1;
 
-    @FXML
-    private Slider volume2;
-
-    @FXML
-    private Label volumeLabel1;
-
-    @FXML
-    private Label volumeLabel2;
-    @FXML
-    private Label currentTime1;
-
-    @FXML
-    private Label currentTime2;
-    @FXML
-    private Label totalTime1;
-
-    @FXML
-    private Label totalTime2;
-
-    public final ObservableList<String> songList = FXCollections.observableArrayList();
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private Label musicName;
-    @FXML
-    private Label musicName1;
-
-    @FXML
-    private Slider musicProgress;
-    @FXML
-    private Slider musicProgress1;
+    @FXML private Slider volume1;
+    @FXML private Slider volume2;
+    @FXML private Label volumeLabel1;
+    @FXML private Label volumeLabel2;
+    @FXML private Label currentTime1;
+    @FXML private Label currentTime2;
+    @FXML private Label totalTime1;
+    @FXML private Label totalTime2;
+    @FXML private TextField searchTextField;
+    @FXML private Label musicName;
+    @FXML private Label musicName1;
+    @FXML private Slider musicProgress;
+    @FXML private Slider musicProgress1;
+    @FXML private ListView<String> listSong;
 
     private Media media;
     private MediaPlayer mediaPlayer;
     int songNumber = 0;
     boolean isPlaying = false;
+    double totaTimeDuration;
+    double newvalue;
     public ArrayList<File> songs;
-    @FXML
-    private ListView<String> listSong;
-
+    public final ObservableList<String> songList = FXCollections.observableArrayList();
     private HashMap<String, Integer> nameIndex = new HashMap<String, Integer>();
 
     private void initializeMedia(ArrayList<File> files) {
@@ -70,16 +48,21 @@ public class HelloController  implements  Initializable{
         this.songs = files;
         if (this.songs != null && !this.songs.isEmpty()) {
             listSong.getItems().clear();
+            songList.clear();
+
             for (File f:songs) {
                 listSong.getItems().add(f.getName());
                 nameIndex.put(f.getName(), songs.indexOf(f));
+                songList.add(f.getName());
             }
             media = new Media(songs.get(songNumber).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             musicName.setText(songs.get(songNumber).getName());
             musicName1.setText(songs.get(songNumber).getName());
-        }}
+        }
+    }
 
+    // Event handler for playing a selected song from the list
     @FXML
     void playSong(MouseEvent event) {
         try {
@@ -97,16 +80,34 @@ public class HelloController  implements  Initializable{
 
         }
     }
-    void nextSong(){ if(newvalue >= totaTimeDuration){
+    void nextSong(){
+        if(newvalue >= totaTimeDuration){
         nextButton();
-        System.out.println("done");
     }}
+
+    // Event handler for the play button
     @FXML
     void playButton() {
-        mediaPlayer.setVolume(volume1.getValue() * 0.01);
-        mediaPlayer.setVolume(volume2.getValue() * 0.01);
+
+        if (mediaPlayer != null){
         try{
+            // Bind the volume1 slider property bidirectionally to the volume2 slider property
+            volume1.valueProperty().bindBidirectional(volume2.valueProperty());
+
+            // Add a listener to control the volume
+            volume1.valueProperty().addListener((observableValue, number, t1) -> {
+                mediaPlayer.setVolume(volume1.getValue() * 0.01);
+                volumeLabel1.setText(String.valueOf(Math.round(volume1.getValue())));
+            });
+
+            volume2.valueProperty().addListener((observableValue, number, t1) -> {
+                mediaPlayer.setVolume(volume2.getValue() * 0.01);
+                volumeLabel2.setText(String.valueOf(Math.round(volume2.getValue())));
+            });
+//            mediaPlayer.setVolume(volume1.getValue() * 0.01);
+//            mediaPlayer.setVolume(volume2.getValue() * 0.01);
             if (!isPlaying){
+                // Initialize total duration and set maximum values for progress bars
                 mediaPlayer.setOnPlaying(() -> {
                     Duration totalDuration = media.getDuration();
                     totaTimeDuration = totalDuration.toMinutes();
@@ -117,6 +118,7 @@ public class HelloController  implements  Initializable{
                     long minutes = Math.round(totalDuration.toMinutes());
                     double seconds = Math.round((totalDuration.toSeconds() % 60));
 
+                    //display total time
                     totalTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
                     totalTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
                 });
@@ -127,6 +129,8 @@ public class HelloController  implements  Initializable{
 
                     long minutes = Math.round(newValue.toMinutes());
                     double seconds = Math.round((newValue.toSeconds() % 60));
+
+                    //to display current time
                     currentTime1.setText(String.format("%02d:%02.0f", minutes, seconds));
                     currentTime2.setText(String.format("%02d:%02.0f", minutes, seconds));
 
@@ -139,6 +143,7 @@ public class HelloController  implements  Initializable{
                     }
                 });
 
+                // Allow user to drag progress bar to seek to a specific position
                 musicProgress.setOnMouseDragged(mouseEvent -> {
                     mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
                 });
@@ -147,6 +152,7 @@ public class HelloController  implements  Initializable{
                     mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
                 });
 
+                // Allow user to click on progress bar to seek to a specific position
                 musicProgress.setOnMousePressed(mouseEvent -> {
                     mediaPlayer.seek(Duration.seconds(musicProgress.getValue()));
                 });
@@ -154,7 +160,7 @@ public class HelloController  implements  Initializable{
                 musicProgress1.setOnMousePressed(mouseEvent -> {
                     mediaPlayer.seek(Duration.seconds(musicProgress1.getValue()));
                 });
-
+                // If media is not null, play it; otherwise, initialize and play media
                 if (media != null) {
                     mediaPlayer.play();
                 } else {
@@ -172,12 +178,20 @@ public class HelloController  implements  Initializable{
         } catch (NullPointerException e){
             musicName.setText("Empty playlist, add songs!");
             musicName1.setText("Empty playlist, add songs!");
+        }}
+        else{
+            musicName.setText("Empty playlist, add songs!");
+            musicName1.setText("Empty playlist, add songs!");
         }
     }
+
+    // Event handler for the pause button
     @FXML
     void pauseButton(){
         mediaPlayer.pause();
     }
+
+    // Event handler for the previous button
     @FXML
     void previousButton(){
         try{
@@ -202,7 +216,7 @@ public class HelloController  implements  Initializable{
 
         }
     }
-
+    // Event handler for the next button
     @FXML
     void nextButton(){
         try{
@@ -226,6 +240,7 @@ public class HelloController  implements  Initializable{
 
         }
     }
+    // Event handler for the reply button
     @FXML
     void replyButton() {
         try {
@@ -254,7 +269,6 @@ public class HelloController  implements  Initializable{
             if(media != null){
                 pauseButton();
                 this.initializeMedia(Myfile.reader());
-                System.out.println("reader");
             }
             else{
                 this.initializeMedia(Myfile.reader());
@@ -262,7 +276,13 @@ public class HelloController  implements  Initializable{
         }else{
             System.out.println("file can't be found");
         }
+
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterList(newValue);
+        });
     }
+
+    // Initialization method for the controller
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -280,54 +300,38 @@ public class HelloController  implements  Initializable{
                  ) {
                 System.out.println("printing");
                 System.out.println(currentFile.getName());
+//                listSong.getItems().add(currentFile.getName());
                 songList.add(currentFile.getName());
             }
             this.songNumber = 0;
-
         }
        else {
             try {
                 file.createNewFile();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        volume1.valueProperty().bindBidirectional(volume2.valueProperty());
-
-        volume1.valueProperty().addListener((observableValue, number, t1) -> {
-            mediaPlayer.setVolume(volume1.getValue() * 0.01);
-            volumeLabel1.setText(String.valueOf(Math.round(volume1.getValue())));
-        });
-        volume2.valueProperty().addListener((observableValue, number, t1) -> {
-            mediaPlayer.setVolume(volume2.getValue() * 0.01);
-            volumeLabel2.setText(String.valueOf(Math.round(volume2.getValue())));
-        });
     }
 
+    // Method to filter the song list based on user input
     private void filterList(String filter) {
         ObservableList<String> filteredList = FXCollections.observableArrayList();
 
         for (String item : songList) {
             if (item.toLowerCase().contains(filter.toLowerCase())) {
                 filteredList.add(item);
-                System.out.println(item + "here gone");
             }
         }
-
         listSong.setItems(filteredList);
     }
 }
-class FilesChosen{
-    private static ArrayList<File> files = new ArrayList<File>();
+//  a class to store/retrieve media file's path as text
 
-    public static ArrayList<File> getFiles(){
-        return files;
-    }
-    public static void addFiles(File file){
-        files.add(file);
-    }
-}
 class Myfile {
+
+//    writer method writes the every of media file's path in to music.txt
     public static void writer(List<File> files) {
         ArrayList<String> filePaths = new ArrayList<>();
         for (File file : files) {
@@ -354,6 +358,7 @@ class Myfile {
         }
     }
 
+//    reader file reads the text file and finds the media files with specific path and returns it
     public static ArrayList<File> reader() {
         try (BufferedReader reader = new BufferedReader(new FileReader("music.txt"))) {
             String line;
