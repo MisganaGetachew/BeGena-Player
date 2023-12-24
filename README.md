@@ -5,8 +5,7 @@ This application offers a delightful and easy-to-use platform for playing, pausi
 your favorite songs. With a user-friendly interface, you can also add new songs to your playlist,
 search for specific tracks, and adjust the playback progress using sliders.
 
-####overview
-![About](src/main/resources/about.png)
+
 
 ##### *Tools Used:*
 Java programming Language,  
@@ -22,7 +21,17 @@ File handling (for saving the path for the music file)
 2. Navigate to the project directory:  
    `cd BeGena-Player`
 
+####overview
 
+![About](src/main/resources/about.png)
+
+### Music
+
+![Music](src/main/resources/music.png)
+
+### Play
+
+![Play](src/main/resources/play.png)
 
 ####  Developed by: The Invincibles
 
