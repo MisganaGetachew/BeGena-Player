@@ -1,11 +1,6 @@
 # BeGena-Player
 
-
-####    Music Player Application
-
-Introduction:
-Welcome to the BeGena-Player Application!  
-it's a desktop Music player app named after the Amharic Music creating tool (በገና) read as "BeGena". 
+BeGena Player is  a desktop Music player app named after the Amharic Music creating tool (በገና) read as "BeGena". 
 This application offers a delightful and easy-to-use platform for playing, pausing,  and replaying
 your favorite songs. With a user-friendly interface, you can also add new songs to your playlist,
 search for specific tracks, and adjust the playback progress using sliders.
