@@ -1,5 +1,6 @@
-package musicplayer.musicplayer;
+// after testing the APP make sure the 'music.txt' file is empty before running the app it's found in "BeGena-player/music.txt"
 
+package musicplayer.musicplayer;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
