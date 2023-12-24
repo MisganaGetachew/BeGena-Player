@@ -69,7 +69,7 @@ public class HelloController  implements  Initializable{
 
         this.songs = files;
         if (this.songs != null && !this.songs.isEmpty()) {
-
+            listSong.getItems().clear();
             for (File f:songs) {
                 listSong.getItems().add(f.getName());
                 nameIndex.put(f.getName(), songs.indexOf(f));
@@ -273,10 +273,12 @@ public class HelloController  implements  Initializable{
         File file  = new File("music.txt");
 
         if(file.exists()){
+
             initializeMedia(Myfile.reader());
 
             for (File currentFile:Myfile.reader()
                  ) {
+                System.out.println("printing");
                 System.out.println(currentFile.getName());
                 songList.add(currentFile.getName());
             }
